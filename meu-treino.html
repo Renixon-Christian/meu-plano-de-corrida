@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Plano de Treino 5K</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; background-color: #f4f4f9; color: #333; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1, h2 { text-align: center; color: #4a4a4a; }
+        h3.month-header { margin-top: 40px; padding-bottom: 10px; border-bottom: 2px solid #007bff; color: #007bff; }
+        .treino-hoje { background-color: #eef5ff; border: 2px solid #007bff; padding: 20px; border-radius: 8px; margin-bottom: 30px; text-align: center; }
+        .treino-hoje h2 { margin-top: 0; }
+        .treino-hoje p { font-size: 1.2em; margin: 0; }
+        .lista-treinos ul { list-style: none; padding: 0; margin-top: 10px; }
+        .lista-treinos li { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #eee; transition: background-color 0.3s; }
+        .lista-treinos li:last-child { border-bottom: none; }
+        .lista-treinos li.done { background-color: #e8f5e9; text-decoration: line-through; color: #757575; }
+        .lista-treinos input[type="checkbox"] { width: 20px; height: 20px; margin-right: 15px; cursor: pointer; flex-shrink: 0; }
+        .info { flex-grow: 1; }
+        .info span { display: block; }
+        .info .data { font-weight: bold; font-size: 1.1em; }
+        .info .descricao { color: #555; }
+        .info .tipo { font-size: 0.9em; background-color: #eee; color: #555; padding: 2px 8px; border-radius: 12px; display: inline-block; margin-top: 5px;}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Plano de Treino - Rumo aos 5K 🏁</h1>
+        
+        <div id="treino-de-hoje" class="treino-hoje">
+            <h2>Carregando treino de hoje...</h2>
+        </div>
+
+        <h2>Histórico Completo de Treinos</h2>
+        <div class="lista-treinos" id="lista-completa-container">
+            </div>
+    </div>
+
+    <script>
+        const treinos = [
+            {data: '2025-08-03', dia: 'Domingo', tipo: 'Corrida/Caminhada', descricao: '(Repetir 8x) 1 min de trote + 2 min de caminhada'},
+            {data: '2025-08-04', dia: 'Segunda', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 30 minutos'},
+            {data: '2025-08-05', dia: 'Terça', tipo: 'Corrida/Caminhada', descricao: '(Repetir 8x) 1 min de trote + 2 min de caminhada'},
+            {data: '2025-08-06', dia: 'Quarta', tipo: 'Fortalecimento', descricao: '3 séries de prancha, agachamentos sem peso e abdominais'},
+            {data: '2025-08-07', dia: 'Quinta', tipo: 'Corrida/Caminhada', descricao: '(Repetir 8x) 1 min de trote + 2 min de caminhada'},
+            {data: '2025-08-08', dia: 'Sexta', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 40 minutos'},
+            {data: '2025-08-09', dia: 'Sábado', tipo: 'Fortalecimento', descricao: '3 séries de prancha, agachamentos e elevação de panturrilha'},
+            {data: '2025-08-10', dia: 'Domingo', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 30 min ou sessão de alongamento'},
+            {data: '2025-08-11', dia: 'Segunda', tipo: 'Corrida/Caminhada', descricao: '(Repetir 7x) 2 min de trote + 2 min de caminhada'},
+            {data: '2025-08-12', dia: 'Terça', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 30 minutos'},
+            {data: '2025-08-13', dia: 'Quarta', tipo: 'Corrida/Caminhada', descricao: '(Repetir 7x) 2 min de trote + 2 min de caminhada'},
+            {data: '2025-08-14', dia: 'Quinta', tipo: 'Fortalecimento', descricao: '3 séries de prancha, agachamentos e abdominais'},
+            {data: '2025-08-15', dia: 'Sexta', tipo: 'Corrida/Caminhada', descricao: '(Repetir 7x) 2 min de trote + 2 min de caminhada'},
+            {data: '2025-08-16', dia: 'Sábado', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 40 minutos'},
+            {data: '2025-08-17', dia: 'Domingo', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 30 min ou sessão de alongamento'},
+            {data: '2025-08-18', dia: 'Segunda', tipo: 'Corrida/Caminhada', descricao: '(Repetir 6x) 3 min de trote + 2 min de caminhada'},
+            {data: '2025-08-19', dia: 'Terça', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 40 minutos'},
+            {data: '2025-08-20', dia: 'Quarta', tipo: 'Corrida/Caminhada', descricao: '(Repetir 6x) 3 min de trote + 2 min de caminhada'},
+            {data: '2025-08-21', dia: 'Quinta', tipo: 'Fortalecimento', descricao: 'Foco em pernas e core'},
+            {data: '2025-08-22', dia: 'Sexta', tipo: 'Corrida/Caminhada', descricao: '(Repetir 6x) 3 min de trote + 2 min de caminhada'},
+            {data: '2025-08-23', dia: 'Sábado', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 40 minutos'},
+            {data: '2025-08-24', dia: 'Domingo', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 30 min ou sessão de alongamento'},
+            {data: '2025-08-25', dia: 'Segunda', tipo: 'Corrida/Caminhada', descricao: '(Repetir 5x) 4 min de trote + 2 min de caminhada'},
+            {data: '2025-08-26', dia: 'Terça', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 40 minutos'},
+            {data: '2025-08-27', dia: 'Quarta', tipo: 'Corrida/Caminhada', descricao: '(Repetir 5x) 4 min de trote + 2 min de caminhada'},
+            {data: '2025-08-28', dia: 'Quinta', tipo: 'Fortalecimento', descricao: 'Foco em pernas e core'},
+            {data: '2025-08-29', dia: 'Sexta', tipo: 'Corrida/Caminhada', descricao: '(Repetir 5x) 4 min de trote + 2 min de caminhada'},
+            {data: '2025-08-30', dia: 'Sábado', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 45 minutos'},
+            {data: '2025-08-31', dia: 'Domingo', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 30 min ou sessão de alongamento'},
+            {data: '2025-09-01', dia: 'Segunda', tipo: 'Corrida/Caminhada', descricao: '(Repetir 4x) 6 min de trote + 2 min de caminhada'},
+            {data: '2025-09-02', dia: 'Terça', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 40 minutos'},
+            {data: '2025-09-03', dia: 'Quarta', tipo: 'Corrida/Caminhada', descricao: '(Repetir 4x) 6 min de trote + 2 min de caminhada'},
+            {data: '2025-09-04', dia: 'Quinta', tipo: 'Fortalecimento', descricao: 'Foco em pernas e core'},
+            {data: '2025-09-05', dia: 'Sexta', tipo: 'Corrida/Caminhada', descricao: '(Repetir 4x) 6 min de trote + 2 min de caminhada'},
+            {data: '2025-09-06', dia: 'Sábado', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 40 minutos'},
+            {data: '2025-09-07', dia: 'Domingo', tipo: 'Recuperação Ativa', descricao: 'Caminhada muito leve de 30 minutos'},
+            {data: '2025-09-08', dia: 'Segunda', tipo: 'Corrida/Caminhada', descricao: '(Repetir 3x) 8 min de trote + 2 min de caminhada'},
+            {data: '2025-09-09', dia: 'Terça', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 40 minutos'},
+            {data: '2025-09-10', dia: 'Quarta', tipo: 'Corrida/Caminhada', descricao: '(Repetir 3x) 8 min de trote + 2 min de caminhada'},
+            {data: '2025-09-11', dia: 'Quinta', tipo: 'Fortalecimento', descricao: 'Foco em pernas e core'},
+            {data: '2025-09-12', dia: 'Sexta', tipo: 'Corrida/Caminhada', descricao: '(Repetir 3x) 8 min de trote + 2 min de caminhada'},
+            {data: '2025-09-13', dia: 'Sábado', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 45 minutos'},
+            {data: '2025-09-14', dia: 'Domingo', tipo: 'Recuperação Ativa', descricao: 'Caminhada muito leve de 30 minutos'},
+            {data: '2025-09-15', dia: 'Segunda', tipo: 'Corrida/Caminhada', descricao: '(Repetir 2x) 12 min de trote + 2 min de caminhada'},
+            {data: '2025-09-16', dia: 'Terça', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 40 minutos'},
+            {data: '2025-09-17', dia: 'Quarta', tipo: 'Corrida/Caminhada', descricao: '(Repetir 2x) 12 min de trote + 2 min de caminhada'},
+            {data: '2025-09-18', dia: 'Quinta', tipo: 'Fortalecimento', descricao: 'Foco em pernas e core'},
+            {data: '2025-09-19', dia: 'Sexta', tipo: 'Corrida/Caminhada', descricao: '(Repetir 2x) 12 min de trote + 2 min de caminhada'},
+            {data: '2025-09-20', dia: 'Sábado', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 45 minutos'},
+            {data: '2025-09-21', dia: 'Domingo', tipo: 'Recuperação Ativa', descricao: 'Caminhada muito leve de 30 minutos'},
+            {data: '2025-09-22', dia: 'Segunda', tipo: 'Corrida/Caminhada', descricao: '15 min de trote + 3 min de caminhada + 8 min de trote'},
+            {data: '2025-09-23', dia: 'Terça', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 40 minutos'},
+            {data: '2025-09-24', dia: 'Quarta', tipo: 'Corrida/Caminhada', descricao: '15 min de trote + 3 min de caminhada + 8 min de trote'},
+            {data: '2025-09-25', dia: 'Quinta', tipo: 'Fortalecimento', descricao: 'Foco em pernas e core'},
+            {data: '2025-09-26', dia: 'Sexta', tipo: 'Corrida/Caminhada', descricao: '15 min de trote + 3 min de caminhada + 8 min de trote'},
+            {data: '2025-09-27', dia: 'Sábado', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 45 minutos'},
+            {data: '2025-09-28', dia: 'Domingo', tipo: 'Recuperação Ativa', descricao: 'Caminhada muito leve de 30 minutos'},
+            {data: '2025-09-29', dia: 'Segunda', tipo: 'Corrida Contínua', descricao: '20 minutos de trote contínuo'},
+            {data: '2025-09-30', dia: 'Terça', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 30 minutos'},
+            {data: '2025-10-01', dia: 'Quarta', tipo: 'Corrida Contínua', descricao: '20 minutos de trote contínuo'},
+            {data: '2025-10-02', dia: 'Quinta', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 30 min'},
+            {data: '2025-10-03', dia: 'Sexta', tipo: 'Corrida Contínua', descricao: '20 minutos de trote contínuo'},
+            {data: '2025-10-04', dia: 'Sábado', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 40 minutos'},
+            {data: '2025-10-05', dia: 'Domingo', tipo: 'Recuperação Ativa', descricao: 'Caminhada muito leve de 30 minutos'},
+            {data: '2025-10-06', dia: 'Segunda', tipo: 'Corrida Contínua', descricao: '25 minutos de trote contínuo'},
+            {data: '2025-10-07', dia: 'Terça', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 30 min'},
+            {data: '2025-10-08', dia: 'Quarta', tipo: 'Corrida Contínua', descricao: '25 minutos de trote contínuo'},
+            {data: '2025-10-09', dia: 'Quinta', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 30 min'},
+            {data: '2025-10-10', dia: 'Sexta', tipo: 'Corrida Contínua', descricao: '25 minutos de trote contínuo'},
+            {data: '2025-10-11', dia: 'Sábado', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 40 minutos'},
+            {data: '2025-10-12', dia: 'Domingo', tipo: 'Recuperação Ativa', descricao: 'Caminhada muito leve de 30 minutos'},
+            {data: '2025-10-13', dia: 'Segunda', tipo: 'Corrida Contínua', descricao: '28 minutos de trote contínuo'},
+            {data: '2025-10-14', dia: 'Terça', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 30 min'},
+            {data: '2025-10-15', dia: 'Quarta', tipo: 'Corrida Contínua', descricao: '30 minutos de trote contínuo'},
+            {data: '2025-10-16', dia: 'Quinta', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 30 min'},
+            {data: '2025-10-17', dia: 'Sexta', tipo: 'Corrida Contínua', descricao: '20 minutos de trote leve'},
+            {data: '2025-10-18', dia: 'Sábado', tipo: 'Recuperação Ativa', descricao: 'Caminhada leve de 40 min'},
+            {data: '2025-10-19', dia: 'Domingo', tipo: 'Recuperação Ativa', descricao: 'Caminhada muito leve de 20 min'},
+            {data: '2025-10-20', dia: 'Segunda', tipo: 'Polimento', descricao: '20 minutos de trote muito fácil'},
+            {data: '2025-10-21', dia: 'Terça', tipo: 'Recuperação Ativa', descricao: 'Caminhada muito leve de 20-30 min'},
+            {data: '2025-10-22', dia: 'Quarta', tipo: 'Polimento', descricao: '15 minutos de trote muito fácil'},
+            {data: '2025-10-23', dia: 'Quinta', tipo: 'Recuperação Ativa', descricao: 'Caminhada muito leve de 20 min'},
+            {data: '2025-10-24', dia: 'Sexta', tipo: 'Descanso Total', descricao: 'DESCANSO TOTAL! Hidrate-se e coma bem.'},
+            {data: '2025-10-25', dia: 'Sábado', tipo: 'Dia do Campeonato', descricao: 'Aqueça, comece devagar e curta cada metro. Boa prova!'}
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const containerEl = document.getElementById('lista-completa-container');
+            const treinoHojeEl = document.getElementById('treino-de-hoje');
+            const hoje = new Date();
+            const hojeString = hoje.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+            
+            // Carregar dados salvos
+            const doneData = JSON.parse(localStorage.getItem('treinoStatus')) || {};
+
+            // Exibir treino de hoje
+            const treinoDeHoje = treinos.find(t => t.data === hojeString);
+            if (treinoDeHoje) {
+                treinoHojeEl.innerHTML = `
+                    <h2>Treino de Hoje (${treinoDeHoje.dia})</h2>
+                    <p>${treinoDeHoje.descricao}</p>
+                    <span class="tipo">${treinoDeHoje.tipo}</span>
+                `;
+            } else {
+                treinoHojeEl.innerHTML = '<h2>Nenhum treino agendado para hoje. Aproveite a recuperação!</h2>';
+            }
+
+            // --- LÓGICA ATUALIZADA PARA AGRUPAR POR MÊS ---
+            let currentMonth = null;
+            let currentUl = null;
+
+            treinos.forEach(treino => {
+                const treinoDate = new Date(treino.data + 'T00:00:00-03:00'); // Fuso horário para data correta
+                const monthName = treinoDate.toLocaleString('pt-BR', { month: 'long', year: 'numeric' });
+                const capitalizedMonthName = monthName.charAt(0).toUpperCase() + monthName.slice(1);
+
+                if (capitalizedMonthName !== currentMonth) {
+                    currentMonth = capitalizedMonthName;
+                    
+                    const h3 = document.createElement('h3');
+                    h3.className = 'month-header';
+                    h3.textContent = currentMonth;
+                    containerEl.appendChild(h3);
+
+                    currentUl = document.createElement('ul');
+                    containerEl.appendChild(currentUl);
+                }
+
+                const li = document.createElement('li');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = treino.data;
+                checkbox.checked = doneData[treino.data] || false;
+                
+                if (checkbox.checked) {
+                    li.classList.add('done');
+                }
+
+                checkbox.addEventListener('change', (e) => {
+                    doneData[e.target.id] = e.target.checked;
+                    localStorage.setItem('treinoStatus', JSON.stringify(doneData));
+                    li.classList.toggle('done', e.target.checked);
+                });
+
+                const infoDiv = document.createElement('div');
+                infoDiv.classList.add('info');
+                const dataFormatada = treinoDate.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+
+                infoDiv.innerHTML = `
+                    <span class="data">${dataFormatada} - ${treino.dia}</span>
+                    <span class="descricao">${treino.descricao}</span>
+                    <span class="tipo">${treino.tipo}</span>
+                `;
+
+                li.appendChild(checkbox);
+                li.appendChild(infoDiv);
+                currentUl.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>
