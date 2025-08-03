@@ -1,21 +1,15 @@
-Excelente ideia\! Deixar o HTML "mais completo" significa, na minha visão, trazer toda aquela riqueza de detalhes do nosso "Dicionário de Treinos" para dentro do próprio aplicativo.
+Com certeza. Aqui está o código completo, com **todos os 84 dias do seu plano detalhados**, do primeiro ao último.
 
-Isso vai transformar a página de um simples marcador de treinos em uma **ferramenta de treinamento interativa e educacional**.
+Este código inclui a planilha completa, com os dias de fortalecimento já substituídos por **Recuperação Ativa** e com dicas, focos e instruções específicas para cada um dos dias do seu treinamento. Não há mais trechos "..." para preencher; está tudo aqui.
 
-Preparei uma nova versão do código que inclui:
+**Instruções:**
 
-1.  **Detalhes Integrados:** Cada treino de corrida agora mostra dicas de **Ritmo, Postura e Respiração**.
-2.  **Instruções de Fortalecimento:** Os dias de fortalecimento listam os exercícios, séries e repetições recomendadas.
-3.  **Propósito do Dia:** Cada card de treino explica rapidamente o objetivo daquela sessão (se é para recuperar, construir resistência, etc.).
-4.  **Botão "Mostrar/Esconder Detalhes":** Para não poluir a tela, os detalhes de cada treino ficam recolhidos. Você pode clicar para expandir e ver as dicas, mantendo a interface limpa e organizada.
+1.  Copie o bloco de código inteiro abaixo.
+2.  Cole em um editor de texto simples (Bloco de Notas, TextEdit, etc.).
+3.  Salve o arquivo com o nome `index.html`.
+4.  Suba este único arquivo para o Netlify ou GitHub Pages para acessá-lo do seu celular.
 
-O resultado é um "site" muito mais rico e útil para o seu dia a dia.
-
------
-
-### **Seu Novo HTML - A Versão Mais Completa**
-
-Siga os mesmos passos de antes: copie o código abaixo, cole em um editor de texto (Bloco de Notas), salve como `index.html` (usar `index.html` é a melhor prática\!) e suba para o Netlify ou GitHub.
+<!-- end list -->
 
 ```html
 <!DOCTYPE html>
@@ -23,7 +17,7 @@ Siga os mesmos passos de antes: copie o código abaixo, cole em um editor de tex
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Plano de Treino 5K</title>
+    <title>Meu Plano de Corrida 5K</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 10px 10px 50px 10px; background-color: #f4f4f9; color: #333; }
         .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
@@ -33,34 +27,35 @@ Siga os mesmos passos de antes: copie o código abaixo, cole em um editor de tex
         h3.month-header { margin-top: 40px; padding-bottom: 10px; border-bottom: 3px solid #007bff; color: #007bff; font-size: 1.5em; }
         .treino-hoje { background-color: #eef5ff; border: 2px solid #007bff; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
         .treino-hoje h2 { margin-top: 0; border: none;}
-        .treino-hoje p.descricao-principal { font-size: 1.3em; margin: 0; text-align: center; font-weight: bold;}
+        .treino-hoje .titulo-principal { font-size: 1.3em; margin: 0; text-align: center; font-weight: bold;}
+        .treino-hoje .descricao-principal { font-size: 1.1em; text-align: center; margin-top: 5px; color: #333;}
         
         .lista-treinos ul { list-style: none; padding: 0; margin-top: 10px; }
         .lista-treinos li { background-color: #fff; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px; padding: 15px; transition: all 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .lista-treinos li.done { background-color: #f0fff0; border-left: 5px solid #4CAF50; }
-        .lista-treinos li.done .info .data { text-decoration: line-through; color: #888; }
+        .lista-treinos li.done .info .titulo { text-decoration: line-through; color: #888; }
         
         .treino-header { display: flex; align-items: center; }
         .lista-treinos input[type="checkbox"] { width: 22px; height: 22px; margin-right: 15px; cursor: pointer; flex-shrink: 0; }
         .info { flex-grow: 1; }
         .info span { display: block; }
-        .info .data { font-weight: bold; font-size: 1.2em; }
+        .info .data { font-weight: bold; font-size: 1.1em; margin-bottom: 5px; }
+        .info .titulo { font-size: 1.2em; font-weight: 600; color: #333;}
         .info .descricao { color: #555; font-size: 1.1em; }
-        .info .tipo { font-size: 0.9em; background-color: #eee; color: #555; padding: 3px 10px; border-radius: 12px; display: inline-block; margin-top: 8px; font-weight: 500;}
         
         .toggle-details { background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 20px; padding: 5px 15px; cursor: pointer; margin-top: 15px; font-size: 0.9em; transition: background-color 0.3s; }
         .toggle-details:hover { background-color: #e0e0e0; }
         
-        .workout-details { background-color: #fafafa; border: 1px solid #eee; border-radius: 5px; padding: 15px; margin-top: 15px; display: none; }
-        .workout-details h4 { margin-top: 0; color: #007bff; }
-        .workout-details ul { list-style: disc; padding-left: 20px; }
-        .workout-details li { border: none; padding: 2px 0; box-shadow: none; margin-bottom: 5px; }
+        .workout-details { background-color: #fafafa; border-radius: 5px; padding: 15px; margin-top: 15px; display: none; }
+        .workout-details ul { list-style: none; padding-left: 0; }
+        .workout-details li { border: none; padding: 5px 0; box-shadow: none; margin-bottom: 8px; border-bottom: 1px dashed #eee; }
+        .workout-details li:last-child { border-bottom: none; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Plano de Treino - Rumo aos 5K 🏁</h1>
+        <h1>Plano de Corrida Detalhado 🏁</h1>
         
         <div id="treino-de-hoje" class="treino-hoje">
             <h2>Carregando treino de hoje...</h2>
@@ -72,180 +67,139 @@ Siga os mesmos passos de antes: copie o código abaixo, cole em um editor de tex
     </div>
 
     <script>
-        // --- DICIONÁRIO DE DETALHES DOS TREINOS ---
-        const detalhesTreino = {
-            corrida: {
-                objetivo: "Construir resistência cardiovascular e muscular.",
-                foco: [
-                    "<strong>Ritmo:</strong> Mantenha um esforço leve a moderado (4-6 de 10). Você deve conseguir conversar.",
-                    "<strong>Postura:</strong> Corra 'alto', com o tronco ereto e o olhar no horizonte.",
-                    "<strong>Passos:</strong> Pise de forma leve, sem fazer muito barulho, com os pés abaixo do corpo."
-                ]
-            },
-            recuperacao: {
-                objetivo: "Acelerar a recuperação muscular para o próximo treino forte.",
-                foco: [
-                    "<strong>Intensidade:</strong> Muito leve (1-3 de 10). Termine se sentindo melhor do que começou.",
-                    "<strong>Propósito:</strong> Aumentar o fluxo sanguíneo para 'limpar' os músculos e reduzir a dor."
-                ]
-            },
-            fortalecimento: {
-                objetivo: "Construir uma base forte para prevenir lesões e melhorar a eficiência da corrida.",
-                foco: [
-                    "<strong>Qualidade > Quantidade:</strong> Foque em fazer cada movimento de forma correta e controlada.",
-                    "<strong>Agachamento:</strong> 3 séries de 10-15 reps (Costas retas, como se fosse sentar).",
-                    "<strong>Prancha:</strong> 3 séries, segurando o máximo que puder (Corpo reto como uma tábua).",
-                    "<strong>Ponte de Glúteos:</strong> 3 séries de 12-15 reps (Eleve o quadril, contraia os glúteos).",
-                    "<strong>Panturrilha:</strong> 3 séries de 15-20 reps (Suba na ponta dos pés, desça devagar)."
-                ]
-            },
-            polimento: {
-                objetivo: "Reduzir o cansaço para chegar 100% no dia da prova.",
-                foco: ["Manter o corpo ativo, mas sem acumular fadiga. Confie no descanso!"]
-            },
-            descanso: {
-                objetivo: "Recuperação total. Seu corpo reconstrói as fibras musculares e repõe a energia.",
-                foco: ["Hidrate-se bem e alimente-se de forma nutritiva."]
-            },
-            campeonato: {
-                objetivo: "Celebrar sua jornada e completar a distância para a qual você treinou!",
-                foco: [
-                    "<strong>Estratégia:</strong> Comece mais devagar do que nos treinos. Controle a adrenalina.",
-                    "<strong>Mental:</strong> Você treinou para isso. Confie no seu corpo e no seu plano.",
-                    "<strong>Celebre:</strong> Curta a atmosfera da prova e orgulhe-se de cada passo."
-                ]
-            }
-        };
-
         const treinos = [
-            {data: '2025-08-03', dia: 'Domingo', tipo: 'corrida', descricao: '(8x) 1min trote + 2min caminhada'},
-            {data: '2025-08-04', dia: 'Segunda', tipo: 'recuperacao', descricao: 'Caminhada leve de 30 minutos'},
-            {data: '2025-08-05', dia: 'Terça', tipo: 'corrida', descricao: '(8x) 1min trote + 2min caminhada'},
-            {data: '2025-08-06', dia: 'Quarta', tipo: 'fortalecimento', descricao: 'Exercícios de base'},
-            {data: '2025-08-07', dia: 'Quinta', tipo: 'corrida', descricao: '(8x) 1min trote + 2min caminhada'},
-            {data: '2025-08-08', dia: 'Sexta', tipo: 'recuperacao', descricao: 'Caminhada leve de 40 minutos'},
-            {data: '2025-08-09', dia: 'Sábado', tipo: 'fortalecimento', descricao: 'Exercícios de base'},
-            {data: '2025-08-10', dia: 'Domingo', tipo: 'recuperacao', descricao: 'Caminhada leve ou alongamento'},
-            {data: '2025-08-11', dia: 'Segunda', tipo: 'corrida', descricao: '(7x) 2min trote + 2min caminhada'},
-            {data: '2025-08-12', dia: 'Terça', tipo: 'recuperacao', descricao: 'Caminhada leve de 30 minutos'},
-            {data: '2025-08-13', dia: 'Quarta', tipo: 'corrida', descricao: '(7x) 2min trote + 2min caminhada'},
-            {data: '2025-08-14', dia: 'Quinta', tipo: 'fortalecimento', descricao: 'Exercícios de base'},
-            {data: '2025-08-15', dia: 'Sexta', tipo: 'corrida', descricao: '(7x) 2min trote + 2min caminhada'},
-            {data: '2025-08-16', dia: 'Sábado', tipo: 'recuperacao', descricao: 'Caminhada leve de 40 minutos'},
-            {data: '2025-08-17', dia: 'Domingo', tipo: 'recuperacao', descricao: 'Caminhada leve ou alongamento'},
-            {data: '2025-08-18', dia: 'Segunda', tipo: 'corrida', descricao: '(6x) 3min trote + 2min caminhada'},
-            {data: '2025-08-19', dia: 'Terça', tipo: 'recuperacao', descricao: 'Caminhada leve de 40 minutos'},
-            {data: '2025-08-20', dia: 'Quarta', tipo: 'corrida', descricao: '(6x) 3min trote + 2min caminhada'},
-            {data: '2025-08-21', dia: 'Quinta', tipo: 'fortalecimento', descricao: 'Exercícios de base'},
-            {data: '2025-08-22', dia: 'Sexta', tipo: 'corrida', descricao: '(6x) 3min trote + 2min caminhada'},
-            {data: '2025-08-23', dia: 'Sábado', tipo: 'recuperacao', descricao: 'Caminhada leve de 40 minutos'},
-            {data: '2025-08-24', dia: 'Domingo', tipo: 'recuperacao', descricao: 'Caminhada leve ou alongamento'},
-            {data: '2025-08-25', dia: 'Segunda', tipo: 'corrida', descricao: '(5x) 4min trote + 2min caminhada'},
-            {data: '2025-08-26', dia: 'Terça', tipo: 'recuperacao', descricao: 'Caminhada leve de 40 minutos'},
-            {data: '2025-08-27', dia: 'Quarta', tipo: 'corrida', descricao: '(5x) 4min trote + 2min caminhada'},
-            {data: '2025-08-28', dia: 'Quinta', tipo: 'fortalecimento', descricao: 'Exercícios de base'},
-            {data: '2025-08-29', dia: 'Sexta', tipo: 'corrida', descricao: '(5x) 4min trote + 2min caminhada'},
-            {data: '2025-08-30', dia: 'Sábado', tipo: 'recuperacao', descricao: 'Caminhada leve de 45 minutos'},
-            {data: '2025-08-31', dia: 'Domingo', tipo: 'recuperacao', descricao: 'Caminhada leve ou alongamento'},
-            {data: '2025-09-01', dia: 'Segunda', tipo: 'corrida', descricao: '(4x) 6min trote + 2min caminhada'},
-            {data: '2025-09-02', dia: 'Terça', tipo: 'recuperacao', descricao: 'Caminhada leve de 40 minutos'},
-            {data: '2025-09-03', dia: 'Quarta', tipo: 'corrida', descricao: '(4x) 6min trote + 2min caminhada'},
-            {data: '2025-09-04', dia: 'Quinta', tipo: 'fortalecimento', descricao: 'Exercícios de base'},
-            {data: '2025-09-05', dia: 'Sexta', tipo: 'corrida', descricao: '(4x) 6min trote + 2min caminhada'},
-            {data: '2025-09-06', dia: 'Sábado', tipo: 'recuperacao', descricao: 'Caminhada leve de 40 minutos'},
-            {data: '2025-09-07', dia: 'Domingo', tipo: 'recuperacao', descricao: 'Caminhada muito leve de 30 minutos'},
-            {data: '2025-09-08', dia: 'Segunda', tipo: 'corrida', descricao: '(3x) 8min trote + 2min caminhada'},
-            {data: '2025-09-09', dia: 'Terça', tipo: 'recuperacao', descricao: 'Caminhada leve de 40 minutos'},
-            {data: '2025-09-10', dia: 'Quarta', tipo: 'corrida', descricao: '(3x) 8min trote + 2min caminhada'},
-            {data: '2025-09-11', dia: 'Quinta', tipo: 'fortalecimento', descricao: 'Exercícios de base'},
-            {data: '2025-09-12', dia: 'Sexta', tipo: 'corrida', descricao: '(3x) 8min trote + 2min caminhada'},
-            {data: '2025-09-13', dia: 'Sábado', tipo: 'recuperacao', descricao: 'Caminhada leve de 45 minutos'},
-            {data: '2025-09-14', dia: 'Domingo', tipo: 'recuperacao', descricao: 'Caminhada muito leve de 30 minutos'},
-            {data: '2025-09-15', dia: 'Segunda', tipo: 'corrida', descricao: '(2x) 12min trote + 2min caminhada'},
-            {data: '2025-09-16', dia: 'Terça', tipo: 'recuperacao', descricao: 'Caminhada leve de 40 minutos'},
-            {data: '2025-09-17', dia: 'Quarta', tipo: 'corrida', descricao: '(2x) 12min trote + 2min caminhada'},
-            {data: '2025-09-18', dia: 'Quinta', tipo: 'fortalecimento', descricao: 'Exercícios de base'},
-            {data: '2025-09-19', dia: 'Sexta', tipo: 'corrida', descricao: '(2x) 12min trote + 2min caminhada'},
-            {data: '2025-09-20', dia: 'Sábado', tipo: 'recuperacao', descricao: 'Caminhada leve de 45 minutos'},
-            {data: '2025-09-21', dia: 'Domingo', tipo: 'recuperacao', descricao: 'Caminhada muito leve de 30 minutos'},
-            {data: '2025-09-22', dia: 'Segunda', tipo: 'corrida', descricao: '15min trote + 3min caminhada + 8min trote'},
-            {data: '2025-09-23', dia: 'Terça', tipo: 'recuperacao', descricao: 'Caminhada leve de 40 minutos'},
-            {data: '2025-09-24', dia: 'Quarta', tipo: 'corrida', descricao: '15min trote + 3min caminhada + 8min trote'},
-            {data: '2025-09-25', dia: 'Quinta', tipo: 'fortalecimento', descricao: 'Exercícios de base'},
-            {data: '2025-09-26', dia: 'Sexta', tipo: 'corrida', descricao: '15min trote + 3min caminhada + 8min trote'},
-            {data: '2025-09-27', dia: 'Sábado', tipo: 'recuperacao', descricao: 'Caminhada leve de 45 minutos'},
-            {data: '2025-09-28', dia: 'Domingo', tipo: 'recuperacao', descricao: 'Caminhada muito leve de 30 minutos'},
-            {data: '2025-09-29', dia: 'Segunda', tipo: 'corrida', descricao: '20 minutos de trote contínuo'},
-            {data: '2025-09-30', dia: 'Terça', tipo: 'recuperacao', descricao: 'Caminhada leve de 30 minutos'},
-            {data: '2025-10-01', dia: 'Quarta', tipo: 'corrida', descricao: '20 minutos de trote contínuo'},
-            {data: '2025-10-02', dia: 'Quinta', tipo: 'recuperacao', descricao: 'Caminhada leve de 30 min'},
-            {data: '2025-10-03', dia: 'Sexta', tipo: 'corrida', descricao: '20 minutos de trote contínuo'},
-            {data: '2025-10-04', dia: 'Sábado', tipo: 'recuperacao', descricao: 'Caminhada leve de 40 minutos'},
-            {data: '2025-10-05', dia: 'Domingo', tipo: 'recuperacao', descricao: 'Caminhada muito leve de 30 minutos'},
-            {data: '2025-10-06', dia: 'Segunda', tipo: 'corrida', descricao: '25 minutos de trote contínuo'},
-            {data: '2025-10-07', dia: 'Terça', tipo: 'recuperacao', descricao: 'Caminhada leve de 30 min'},
-            {data: '2025-10-08', dia: 'Quarta', tipo: 'corrida', descricao: '25 minutos de trote contínuo'},
-            {data: '2025-10-09', dia: 'Quinta', tipo: 'recuperacao', descricao: 'Caminhada leve de 30 min'},
-            {data: '2025-10-10', dia: 'Sexta', tipo: 'corrida', descricao: '25 minutos de trote contínuo'},
-            {data: '2025-10-11', dia: 'Sábado', tipo: 'recuperacao', descricao: 'Caminhada leve de 40 minutos'},
-            {data: '2025-10-12', dia: 'Domingo', tipo: 'recuperacao', descricao: 'Caminhada muito leve de 30 minutos'},
-            {data: '2025-10-13', dia: 'Segunda', tipo: 'corrida', descricao: '28 minutos de trote contínuo'},
-            {data: '2025-10-14', dia: 'Terça', tipo: 'recuperacao', descricao: 'Caminhada leve de 30 min'},
-            {data: '2025-10-15', dia: 'Quarta', tipo: 'corrida', descricao: '30 minutos de trote contínuo'},
-            {data: '2025-10-16', dia: 'Quinta', tipo: 'recuperacao', descricao: 'Caminhada leve de 30 min'},
-            {data: '2025-10-17', dia: 'Sexta', tipo: 'corrida', descricao: '20 minutos de trote leve'},
-            {data: '2025-10-18', dia: 'Sábado', tipo: 'recuperacao', descricao: 'Caminhada leve de 40 min'},
-            {data: '2025-10-19', dia: 'Domingo', tipo: 'recuperacao', descricao: 'Caminhada muito leve de 20 min'},
-            {data: '2025-10-20', dia: 'Segunda', tipo: 'polimento', descricao: '20 minutos de trote muito fácil'},
-            {data: '2025-10-21', dia: 'Terça', tipo: 'recuperacao', descricao: 'Caminhada muito leve de 20-30 min'},
-            {data: '2025-10-22', dia: 'Quarta', tipo: 'polimento', descricao: '15 minutos de trote muito fácil'},
-            {data: '2025-10-23', dia: 'Quinta', tipo: 'recuperacao', descricao: 'Caminhada muito leve de 20 min'},
-            {data: '2025-10-24', dia: 'Sexta', tipo: 'descanso', descricao: 'DESCANSO TOTAL!'},
-            {data: '2025-10-25', dia: 'Sábado', tipo: 'campeonato', descricao: 'Corra seus 5K!'}
+            // AGOSTO - SEMANA 1
+            {data: '2025-08-03', dia: 'Domingo', tipo: 'corrida', titulo: 'Primeiros Passos', descricao: '(8x) 1min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada, aumentando o passo gradualmente.", "<strong>Foco do Trote:</strong> Ritmo muito leve. O objetivo é apenas manter as pernas em movimento por 60 segundos.", "<strong>Foco da Caminhada:</strong> Use os 2 minutos para recuperar o fôlego completamente. Respire fundo.", "<strong>Desaquecimento:</strong> 5 min de caminhada bem lenta ao final."]},
+            {data: '2025-08-04', dia: 'Segunda', tipo: 'recuperacao', titulo: 'Recuperação do Início', descricao: '30 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> Ajudar seu corpo a se adaptar ao novo estímulo. Sem esforço!", "<strong>Sensação:</strong> Deve ser um passeio relaxante. Se sentir dor, diminua ou pare. Ouça seu corpo."]},
+            {data: '2025-08-05', dia: 'Terça', tipo: 'corrida', titulo: 'Consolidando o Hábito', descricao: '(8x) 1min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada + movimentos circulares com os tornozelos.", "<strong>Foco do Dia:</strong> Consistência. Apenas complete o treino. Não se preocupe com mais nada.", "<strong>Desaquecimento:</strong> 5 min de caminhada lenta + alongamento suave de panturrilhas."]},
+            {data: '2025-08-06', dia: 'Quarta', tipo: 'recuperacao', titulo: 'Soltura Muscular', descricao: '30-40 min de caminhada ou alongamento', detalhes: ["<strong>Objetivo:</strong> Manter o corpo ativo e solto. A recuperação é parte do treino.", "<strong>Dica:</strong> Se optar por alongar, foque em posteriores da coxa e quadríceps, segurando cada posição por 30s."]},
+            {data: '2025-08-07', dia: 'Quinta', tipo: 'corrida', titulo: 'Sentindo a Confiança', descricao: '(8x) 1min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada + balançar as pernas para frente e para trás.", "<strong>Foco Mental:</strong> Pense em como você já completou este treino antes. Sinta a confiança.", "<strong>Desaquecimento:</strong> 5 min de caminhada lenta."]},
+            {data: '2025-08-08', dia: 'Sexta', tipo: 'recuperacao', titulo: 'Caminhada Relaxante', descricao: '40 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> Limpar a fadiga da semana.", "<strong>Dica:</strong> Ouça um podcast ou sua música favorita e curta o momento."]},
+            {data: '2025-08-09', dia: 'Sábado', tipo: 'recuperacao', titulo: 'Movimento Leve', descricao: '30 min de caminhada leve', detalhes: ["<strong>Foco:</strong> Apenas movimentar o corpo suavemente, preparando-o para a progressão da próxima semana."]},
+            
+            // AGOSTO - SEMANA 2
+            {data: '2025-08-10', dia: 'Domingo', tipo: 'recuperacao', titulo: 'Domingo Leve', descricao: '20-30 min de caminhada muito leve', detalhes: ["<strong>Objetivo:</strong> Relaxamento total. Prepare sua mente para a semana de treinos."]},
+            {data: '2025-08-11', dia: 'Segunda', tipo: 'corrida', titulo: 'Aumentando o Trote', descricao: '(7x) 2min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada acelerando.", "<strong>Foco do Dia:</strong> Adaptar-se ao novo tempo de trote. Mantenha o ritmo de conversa. Se ficar ofegante, diminua!", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-08-12', dia: 'Terça', tipo: 'recuperacao', titulo: 'Recuperação Pós-Progressão', descricao: '30 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> Ajudar os músculos a se recuperarem do aumento do tempo de corrida."]},
+            {data: '2025-08-13', dia: 'Quarta', tipo: 'corrida', titulo: 'Construindo Confiança', descricao: '(7x) 2min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco Mental:</strong> Sinta como os 2 minutos de trote se tornam mais fáceis. Confie no seu progresso.", "<strong>Desaquecimento:</strong> 5 min de caminhada lenta."]},
+            {data: '2025-08-14', dia: 'Quinta', tipo: 'recuperacao', titulo: 'Manutenção e Flexibilidade', descricao: '30 min de caminhada ou alongamento', detalhes: ["<strong>Foco:</strong> Manter o corpo em movimento para não 'enferrujar'. Se optar por alongar, foque na parte inferior do corpo."]},
+            {data: '2025-08-15', dia: 'Sexta', tipo: 'corrida', titulo: 'Ritmo Consistente', descricao: '(7x) 2min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco na Técnica:</strong> Tente correr 'alto', com o peito aberto e o olhar para frente.", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-08-16', dia: 'Sábado', tipo: 'recuperacao', titulo: 'Caminhada Longa e Leve', descricao: '40 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> Construir um pouco de resistência de baixo impacto."]},
+
+            // AGOSTO - SEMANA 3
+            {data: '2025-08-17', dia: 'Domingo', tipo: 'recuperacao', titulo: 'Preparando a Semana', descricao: '20-30 min de caminhada muito leve', detalhes: ["<strong>Objetivo:</strong> Começar a semana com o pé direito, com uma atividade leve e relaxante."]},
+            {data: '2025-08-18', dia: 'Segunda', tipo: 'corrida', titulo: 'Desafiando os 3 Minutos', descricao: '(6x) 3min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Sinta como seu corpo responde a um trote um pouco mais longo. Lembre-se, o ritmo é de conversa!", "<strong>Desaquecimento:</strong> 5 min de caminhada lenta."]},
+            {data: '2025-08-19', dia: 'Terça', tipo: 'recuperacao', titulo: 'Recuperação Importante', descricao: '40 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> A recuperação hoje é crucial. O aumento no tempo de trote exige mais do corpo."]},
+            {data: '2025-08-20', dia: 'Quarta', tipo: 'corrida', titulo: 'Dominando os 3 Minutos', descricao: '(6x) 3min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Tente manter a boa postura (correr 'alto') mesmo no final do último trote.", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-08-21', dia: 'Quinta', tipo: 'recuperacao', titulo: 'Giro Leve', descricao: '30 min de caminhada ou alongamento', detalhes: ["<strong>Foco:</strong> Apenas 'girar as pernas'. Sem nenhum tipo de esforço."]},
+            {data: '2025-08-22', dia: 'Sexta', tipo: 'corrida', titulo: 'Finalizando a Semana 3', descricao: '(6x) 3min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco Mental:</strong> Orgulhe-se por completar mais uma semana de progressão!", "<strong>Desaquecimento:</strong> 5 min de caminhada lenta."]},
+            {data: '2025-08-23', dia: 'Sábado', tipo: 'recuperacao', titulo: 'Caminhada de Sábado', descricao: '40 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> Relaxar e aproveitar o fim de semana, mantendo o corpo ativo."]},
+
+            // AGOSTO - SEMANA 4
+            {data: '2025-08-24', dia: 'Domingo', tipo: 'recuperacao', titulo: 'Pausa Dominical', descricao: '20-30 min de caminhada muito leve', detalhes: ["<strong>Foco:</strong> Recarregar as energias para a última semana de Agosto."]},
+            {data: '2025-08-25', dia: 'Segunda', tipo: 'corrida', titulo: 'Explorando os 4 Minutos', descricao: '(5x) 4min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Este é um salto importante. Mantenha o ritmo mais conservador possível para completar.", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-08-26', dia: 'Terça', tipo: 'recuperacao', titulo: 'Recuperação Obrigatória', descricao: '40 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> Seus músculos precisam desta recuperação. Não pule este treino."]},
+            {data: '2025-08-27', dia: 'Quarta', tipo: 'corrida', titulo: 'Tornando o Difícil, Fácil', descricao: '(5x) 4min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Perceba como este treino já parece mais fácil do que na segunda-feira. Isso é adaptação!", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-08-28', dia: 'Quinta', tipo: 'recuperacao', titulo: 'Dia de Soltura', descricao: '30 min de caminhada ou alongamento', detalhes: ["<strong>Foco:</strong> Aliviar qualquer tensão muscular residual."]},
+            {data: '2025-08-29', dia: 'Sexta', tipo: 'corrida', titulo: 'Fechando o Mês', descricao: '(5x) 4min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco Mental:</strong> Olhe para trás e veja o quanto progrediu neste primeiro mês!", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-08-30', dia: 'Sábado', tipo: 'recuperacao', titulo: 'Caminhada de Fim de Mês', descricao: '45 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> Um treino de baixo impacto mais longo para celebrar o fim do primeiro mês de treinos."]},
+            
+            // SETEMBRO
+            {data: '2025-08-31', dia: 'Domingo', tipo: 'recuperacao', titulo: 'Boas-vindas a Setembro', descricao: '20 min de caminhada leve', detalhes: ["<strong>Foco:</strong> Preparar o corpo e a mente para o segundo mês, onde a resistência será o foco."]},
+            {data: '2025-09-01', dia: 'Segunda', tipo: 'corrida', titulo: 'Trote > Caminhada', descricao: '(4x) 6min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Pela primeira vez, você corre mais do que caminha. Ritmo muito leve é a chave!", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-09-02', dia: 'Terça', tipo: 'recuperacao', titulo: 'Recuperando do Salto', descricao: '40 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> O salto para 6 minutos de trote foi grande. A recuperação é essencial."]},
+            {data: '2025-09-03', dia: 'Quarta', tipo: 'corrida', titulo: 'Confiança nos 6 Minutos', descricao: '(4x) 6min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco na Respiração:</strong> Mantenha uma respiração profunda e ritmada durante os trotes.", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-09-04', dia: 'Quinta', tipo: 'recuperacao', titulo: 'Dia Leve', descricao: '30 min de caminhada ou alongamento', detalhes: ["<strong>Foco:</strong> Soltar as pernas para o último treino forte da semana."]},
+            {data: '2025-09-05', dia: 'Sexta', tipo: 'corrida', titulo: 'Sexta-feira Firme', descricao: '(4x) 6min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Termine a semana com a sensação de dever cumprido e progresso visível.", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-09-06', dia: 'Sábado', tipo: 'recuperacao', titulo: 'Caminhada de Fim de Semana', descricao: '40 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> Relaxar."]},
+            {data: '2025-09-07', dia: 'Domingo', tipo: 'recuperacao', titulo: 'Recuperação Extra', descricao: '20-30 min de caminhada muito leve', detalhes: ["<strong>Foco:</strong> Preparação para mais um aumento no tempo de corrida."]},
+            {data: '2025-09-08', dia: 'Segunda', tipo: 'corrida', titulo: 'Resistência em Foco: 8 Minutos', descricao: '(3x) 8min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> O desafio é mais mental do que físico. Confie no seu corpo, mantenha o ritmo leve e constante.", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-09-09', dia: 'Terça', tipo: 'recuperacao', titulo: 'Pós-8 Minutos', descricao: '40 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> Ajudar na recuperação do treino mais longo até agora."]},
+            {data: '2025-09-10', dia: 'Quarta', tipo: 'corrida', titulo: 'Consistência é Chave', descricao: '(3x) 8min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Manter a boa forma mesmo quando começar a cansar. Corra 'alto'!", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-09-11', dia: 'Quinta', tipo: 'recuperacao', titulo: 'Manutenção', descricao: '30 min de caminhada ou alongamento', detalhes: ["<strong>Foco:</strong> Cuidar do corpo."]},
+            {data: '2025-09-12', dia: 'Sexta', tipo: 'corrida', titulo: 'Fechando a Semana dos 8', descricao: '(3x) 8min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Terminar o treino com a certeza de que você dominou esta distância.", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-09-13', dia: 'Sábado', tipo: 'recuperacao', titulo: 'Caminhada de Resistência', descricao: '45 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> Acostumar o corpo a um tempo de atividade mais longo, sem impacto."]},
+            {data: '2025-09-14', dia: 'Domingo', tipo: 'recuperacao', titulo: 'Descanso Merecido', descricao: '20-30 min de caminhada muito leve', detalhes: ["<strong>Foco:</strong> Relaxamento."]},
+            {data: '2025-09-15', dia: 'Segunda', tipo: 'corrida', titulo: 'Dobrando os Dígitos: 12 Minutos', descricao: '(2x) 12min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Este é um grande marco. Comece o trote mais devagar do que o normal para garantir que você consiga completar.", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-09-16', dia: 'Terça', tipo: 'recuperacao', titulo: 'Recuperação Pós-Marco', descricao: '40 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> Recuperação é prioridade máxima hoje."]},
+            {data: '2025-09-17', dia: 'Quarta', tipo: 'corrida', titulo: 'Construindo o Motor', descricao: '(2x) 12min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Encontre um ritmo constante que você possa manter por todo o tempo.", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-09-18', dia: 'Quinta', tipo: 'recuperacao', titulo: 'Dia Leve', descricao: '30 min de caminhada ou alongamento', detalhes: ["<strong>Foco:</strong> Manter o corpo solto."]},
+            {data: '2025-09-19', dia: 'Sexta', tipo: 'corrida', titulo: 'Confiança nos 12 Minutos', descricao: '(2x) 12min trote + 2min caminhada', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Terminar o treino sabendo que você é capaz de correr por mais de 10 minutos seguidos.", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-09-20', dia: 'Sábado', tipo: 'recuperacao', titulo: 'Caminhada de Sábado', descricao: '45 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> Relaxar."]},
+            {data: '2025-09-21', dia: 'Domingo', tipo: 'recuperacao', titulo: 'Relaxamento Pré-Corrida Longa', descricao: '20-30 min de caminhada muito leve', detalhes: ["<strong>Foco:</strong> Preparar o corpo para o maior tempo de corrida até agora."]},
+            {data: '2025-09-22', dia: 'Segunda', tipo: 'corrida', titulo: 'Quase 25 Minutos!', descricao: '15min trote + 3min caminhada + 8min trote', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Divida o treino em duas partes na sua cabeça. Foque em completar os primeiros 15 minutos, depois foque nos 8 finais.", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-09-23', dia: 'Terça', tipo: 'recuperacao', titulo: 'Recuperação Longa', descricao: '40 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> O corpo precisa de uma boa recuperação após o esforço de ontem."]},
+            {data: '2025-09-24', dia: 'Quarta', tipo: 'corrida', titulo: 'Treino de Resistência', descricao: '15min trote + 3min caminhada + 8min trote', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Tente manter o ritmo do segundo trote (8 min) parecido com o do primeiro (15 min).", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-09-25', dia: 'Quinta', tipo: 'recuperacao', titulo: 'Dia de Soltura', descricao: '30 min de caminhada ou alongamento', detalhes: ["<strong>Foco:</strong> Aliviar a tensão muscular."]},
+            {data: '2025-09-26', dia: 'Sexta', tipo: 'corrida', titulo: 'Fim do Mês Forte', descricao: '15min trote + 3min caminhada + 8min trote', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco Mental:</strong> Você está muito perto de correr 20-30 minutos sem parar. Acredite!", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-09-27', dia: 'Sábado', tipo: 'recuperacao', titulo: 'Caminhada de Celebração', descricao: '45 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> Celebrar o fim do segundo mês de treinos."]},
+            
+            // OUTUBRO - RETA FINAL
+            {data: '2025-09-28', dia: 'Domingo', tipo: 'recuperacao', titulo: 'Início da Reta Final', descricao: '20-30 min de caminhada muito leve', detalhes: ["<strong>Foco:</strong> Outubro é o mês do seu objetivo. Vamos começar com calma."]},
+            {data: '2025-09-29', dia: 'Segunda', tipo: 'corrida', titulo: 'A Barreira dos 20 Minutos!', descricao: '20 minutos de trote contínuo', detalhes: ["<strong>Aquecimento:</strong> 5-7 min de caminhada.", "<strong>Foco:</strong> Este é um grande marco psicológico. Comece lento, encontre um ritmo e não pare. Você consegue!", "<strong>Desaquecimento:</strong> 5-10 min de caminhada."]},
+            {data: '2025-09-30', dia: 'Terça', tipo: 'recuperacao', titulo: 'Recuperação Pós-20', descricao: '30 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> Orgulhe-se do feito de ontem e deixe seu corpo se recuperar."]},
+            {data: '2025-10-01', dia: 'Quarta', tipo: 'corrida', titulo: '20 Minutos de Novo', descricao: '20 minutos de trote contínuo', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Veja se consegue fazer os 20 minutos de forma um pouco mais confortável que na segunda-feira.", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-10-02', dia: 'Quinta', tipo: 'recuperacao', titulo: 'Caminhada Leve', descricao: '30 min de caminhada', detalhes: ["<strong>Foco:</strong> Manter as pernas ativas."]},
+            {data: '2025-10-03', dia: 'Sexta', tipo: 'corrida', titulo: 'Consolidando os 20', descricao: '20 minutos de trote contínuo', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Termine a semana sentindo que 20 minutos de corrida é algo normal para você.", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-10-04', dia: 'Sábado', tipo: 'recuperacao', titulo: 'Caminhada de Sábado', descricao: '40 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> Relaxar."]},
+            {data: '2025-10-05', dia: 'Domingo', tipo: 'recuperacao', titulo: 'Domingo Tranquilo', descricao: '20-30 min de caminhada muito leve', detalhes: ["<strong>Foco:</strong> Relaxamento."]},
+            {data: '2025-10-06', dia: 'Segunda', tipo: 'corrida', titulo: 'Rumo aos 25 Minutos', descricao: '25 minutos de trote contínuo', detalhes: ["<strong>Aquecimento:</strong> 5-7 min de caminhada.", "<strong>Foco:</strong> Outro grande marco. Use a confiança dos 20 minutos. Ritmo constante e leve é o segredo.", "<strong>Desaquecimento:</strong> 5-10 min de caminhada."]},
+            {data: '2025-10-07', dia: 'Terça', tipo: 'recuperacao', titulo: 'Recuperação Essencial', descricao: '30 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> Permitir que o corpo absorva o treino de ontem."]},
+            {data: '2025-10-08', dia: 'Quarta', tipo: 'corrida', titulo: 'Dominando os 25', descricao: '25 minutos de trote contínuo', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Encontre um ritmo confortável e tente mantê-lo.", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-10-09', dia: 'Quinta', tipo: 'recuperacao', titulo: 'Dia de Soltura', descricao: '30 min de caminhada leve', detalhes: ["<strong>Foco:</strong> Deixar as pernas prontas para o último treino longo."]},
+            {data: '2025-10-10', dia: 'Sexta', tipo: 'corrida', titulo: 'Confiança Máxima nos 25', descricao: '25 minutos de trote contínuo', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Este é o seu último treino longo antes do polimento. Termine forte (em espírito)!", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-10-11', dia: 'Sábado', tipo: 'recuperacao', titulo: 'Última Caminhada Longa', descricao: '40 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> Último estímulo de resistência de baixo impacto."]},
+            {data: '2025-10-12', dia: 'Domingo', tipo: 'recuperacao', titulo: 'Relaxamento Pré-Polimento', descricao: '20-30 min de caminhada muito leve', detalhes: ["<strong>Foco:</strong> Relaxar."]},
+            {data: '2025-10-13', dia: 'Segunda', tipo: 'corrida', titulo: 'Treino de Confiança Final', descricao: '28-30 minutos de trote contínuo', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Este é o treino mais longo do plano. É um teste para a sua mente e corpo. Ritmo leve. Se precisar caminhar por 1 minuto no meio, tudo bem. O objetivo é o tempo total.", "<strong>Desaquecimento:</strong> 10 min de caminhada."]},
+            {data: '2025-10-14', dia: 'Terça', tipo: 'recuperacao', titulo: 'Recuperação Pós-Treino Longo', descricao: '30 min de caminhada leve', detalhes: ["<strong>Objetivo:</strong> A recuperação mais importante do plano. Seja gentil com seu corpo."]},
+            {data: '2025-10-15', dia: 'Quarta', tipo: 'corrida', titulo: 'Trote Leve', descricao: '20 minutos de trote leve', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Reduzindo o volume. Este treino é para manter o corpo acostumado ao movimento.", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-10-16', dia: 'Quinta', tipo: 'recuperacao', titulo: 'Caminhada Leve', descricao: '30 min de caminhada', detalhes: ["<strong>Foco:</strong> Soltura."]},
+            {data: '2025-10-17', dia: 'Sexta', tipo: 'corrida', titulo: 'Último Trote Antes do Polimento', descricao: '20 minutos de trote leve', detalhes: ["<strong>Aquecimento:</strong> 5 min de caminhada.", "<strong>Foco:</strong> Apenas se divertir e sentir as pernas leves.", "<strong>Desaquecimento:</strong> 5 min de caminhada."]},
+            {data: '2025-10-18', dia: 'Sábado', tipo: 'recuperacao', titulo: 'Caminhada Leve', descricao: '30 min de caminhada', detalhes: ["<strong>Objetivo:</strong> Começando o polimento final."]},
+            
+            // OUTUBRO - SEMANA FINAL
+            {data: '2025-10-19', dia: 'Domingo', tipo: 'recuperacao', titulo: 'Início da Semana da Prova', descricao: '20 min de caminhada muito leve', detalhes: ["<strong>Foco:</strong> Polimento! O trabalho duro já foi feito. Agora é hora de descansar para chegar novo no sábado."]},
+            {data: '2025-10-20', dia: 'Segunda', tipo: 'polimento', titulo: 'Soltando as Pernas', descricao: '20 min de trote muito fácil', detalhes: ["<strong>Objetivo:</strong> Manter o corpo ativo sem causar fadiga. O ritmo deve ser mais lento que o normal."]},
+            {data: '2025-10-21', dia: 'Terça', tipo: 'recuperacao', titulo: 'Recuperação Total', descricao: '20-30 min de caminhada leve', detalhes: ["<strong>Foco:</strong> Relaxar a mente e o corpo. Beba bastante água."]},
+            {data: '2025-10-22', dia: 'Quarta', tipo: 'polimento', titulo: 'Último Trote', descricao: '15 min de trote muito fácil', detalhes: ["<strong>Objetivo:</strong> Apenas para se sentir bem e lembrar o corpo do movimento da corrida. Muito leve!"]},
+            {data: '2025-10-23', dia: 'Quinta', tipo: 'recuperacao', titulo: 'Caminhada Pré-Descanso', descricao: '20 min de caminhada muito leve', detalhes: ["<strong>Foco:</strong> Manter o sangue fluindo. Sem esforço."]},
+            {data: '2025-10-24', dia: 'Sexta', tipo: 'descanso', titulo: 'DESCANSO TOTAL', descricao: 'Relaxe, hidrate-se e coma bem', detalhes: ["<strong>O trabalho está feito!</strong> Descanse as pernas. Coma uma boa refeição rica em carboidratos (macarrão, arroz) no jantar. Durma cedo."]},
+            {data: '2025-10-25', dia: 'Sábado', tipo: 'campeonato', titulo: 'O GRANDE DIA!', descricao: 'Corra seus 5K!', detalhes: ["<strong>Pré-Prova:</strong> Acorde cedo, tome um café da manhã leve que você já está acostumado.", "<strong>Estratégia:</strong> Aqueça bem. Comece a prova MAIS DEVAGAR do que você treina. É normal a adrenalina te fazer acelerar, mas controle!", "<strong>Mental:</strong> Curta a atmosfera, agradeça seu corpo e celebre cada quilômetro. Você conseguiu!"]}
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
             const containerEl = document.getElementById('lista-completa-container');
             const treinoHojeEl = document.getElementById('treino-de-hoje');
             
-            // Usar data local para evitar problemas de fuso horário
             const hoje = new Date();
             const hojeString = new Date(hoje.getTime() - (hoje.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
 
             const doneData = JSON.parse(localStorage.getItem('treinoStatus')) || {};
 
-            // Função para criar o HTML de um treino (reutilizável)
             function criarDetalhesHTML(detalhes) {
-                if (!detalhes) return '';
-                return `
-                    <h4>${detalhes.objetivo}</h4>
-                    <ul>
-                        ${detalhes.foco.map(item => `<li>${item}</li>`).join('')}
-                    </ul>
-                `;
+                if (!detalhes || detalhes.length === 0) return '';
+                return `<ul>${detalhes.map(item => `<li>${item}</li>`).join('')}</ul>`;
             }
 
-            // Exibir treino de hoje de forma completa
             const treinoDeHoje = treinos.find(t => t.data === hojeString);
             if (treinoDeHoje) {
-                const detalhes = detalhesTreino[treinoDeHoje.tipo];
                 treinoHojeEl.innerHTML = `
                     <h2>Treino de Hoje (${treinoDeHoje.dia})</h2>
+                    <p class="titulo-principal">${treinoDeHoje.titulo}</p>
                     <p class="descricao-principal">${treinoDeHoje.descricao}</p>
                     <div class="workout-details" style="display: block; background-color: transparent; border: none; padding: 10px 0 0 0;">
-                        ${criarDetalhesHTML(detalhes)}
+                        ${criarDetalhesHTML(treinoDeHoje.detalhes)}
                     </div>
                 `;
             } else {
                 treinoHojeEl.innerHTML = '<h2>Nenhum treino agendado para hoje. Aproveite a recuperação!</h2>';
             }
 
-            // Renderizar lista completa por mês
             let currentMonth = null;
             let currentUl = null;
 
             treinos.forEach(treino => {
-                const treinoDate = new Date(treino.data + 'T12:00:00Z'); // Usar T12:00:00Z para evitar problemas de fuso
+                const treinoDate = new Date(treino.data + 'T12:00:00Z');
                 const monthName = treinoDate.toLocaleString('pt-BR', { month: 'long', year: 'numeric' });
                 const capitalizedMonthName = monthName.charAt(0).toUpperCase() + monthName.slice(1);
 
@@ -264,24 +218,22 @@ Siga os mesmos passos de antes: copie o código abaixo, cole em um editor de tex
                 if (isDone) li.classList.add('done');
                 
                 const dataFormatada = treinoDate.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
-                const detalhes = detalhesTreino[treino.tipo];
                 
                 li.innerHTML = `
                     <div class="treino-header">
                         <input type="checkbox" id="${treino.data}" ${isDone ? 'checked' : ''}>
                         <div class="info">
                             <span class="data">${dataFormatada} - ${treino.dia}</span>
+                            <span class="titulo">${treino.titulo}</span>
                             <span class="descricao">${treino.descricao}</span>
-                            <span class="tipo">${treino.tipo.charAt(0).toUpperCase() + treino.tipo.slice(1)}</span>
                         </div>
                     </div>
-                    <button class="toggle-details">Mostrar detalhes</button>
+                    <button class="toggle-details">Mostrar Detalhes</button>
                     <div class="workout-details">
-                        ${criarDetalhesHTML(detalhes)}
+                        ${criarDetalhesHTML(treino.detalhes)}
                     </div>
                 `;
 
-                // Adicionar eventos depois de criar o HTML
                 const checkbox = li.querySelector('input[type="checkbox"]');
                 checkbox.addEventListener('change', (e) => {
                     doneData[e.target.id] = e.target.checked;
@@ -294,7 +246,7 @@ Siga os mesmos passos de antes: copie o código abaixo, cole em um editor de tex
                 toggleButton.addEventListener('click', () => {
                     const isVisible = detailsDiv.style.display === 'block';
                     detailsDiv.style.display = isVisible ? 'none' : 'block';
-                    toggleButton.textContent = isVisible ? 'Mostrar detalhes' : 'Esconder detalhes';
+                    toggleButton.textContent = isVisible ? 'Esconder Detalhes' : 'Mostrar Detalhes';
                 });
 
                 currentUl.appendChild(li);
