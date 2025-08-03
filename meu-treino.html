@@ -1,104 +1,145 @@
+Entendido\! A estética "minimalista" pode ser um pouco seca às vezes. Você está certo, podemos deixar o visual muito mais moderno, motivador e agradável de usar.
+
+Preparei um redesign completo para a sua página. O objetivo foi criar uma interface que seja não apenas funcional, mas que também te dê uma dose extra de ânimo toda manhã.
+
+**O que foi melhorado neste novo design:**
+
+  * **Nova Paleta de Cores:** Saímos do preto e branco para uma paleta moderna com tons de azul vibrante, cinza profissional e verde para indicar sucesso, tornando a página mais viva.
+  * **Tipografia Profissional:** Importei a fonte "Inter" do Google Fonts, que é usada em muitos aplicativos de design modernos. Ela é extremamente legível e elegante.
+  * **Design em "Cards":** O treino de hoje e cada item da lista agora são "cards" com cantos arredondados e sombras suaves, o que cria uma sensação de profundidade e organização.
+  * **Destaque para o Treino do Dia:** O card do treino de hoje agora tem um destaque especial com um fundo gradiente para que seja a primeira coisa que você veja.
+  * **Interatividade Melhorada:** Os botões e caixas de seleção foram redesenhados para terem um visual mais polido e satisfatório de usar.
+
+-----
+
+### **Instruções**
+
+O processo é o mesmo de antes. **Recomendo que você substitua o conteúdo inteiro** do seu arquivo `index.html` pelo código completo abaixo. Isso garante que todas as novas melhorias, incluindo a importação da fonte, funcionem perfeitamente.
+
+-----
+
+### **Código HTML Completo com o Novo Design**
+
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Plano de Corrida 5K</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ===== INÍCIO DO NOVO CSS MINIMALISTA ===== */
+        /* ===== INÍCIO DO NOVO CSS - TEMA MODERNO E MOTIVADOR ===== */
+        :root {
+            --cor-primaria: #2563eb;
+            --cor-sucesso: #16a34a;
+            --fundo-pagina: #f8fafc;
+            --fundo-card: #ffffff;
+            --texto-principal: #1e293b;
+            --texto-secundario: #64748b;
+            --borda-suave: #e2e8f0;
+            --sombra-card: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 20px 10px 60px 10px;
-            background-color: #ffffff;
-            color: #222222;
+            background-color: var(--fundo-pagina);
+            color: var(--texto-principal);
         }
         .container {
             max-width: 800px;
             margin: auto;
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 0;
-            box-shadow: none;
-            border: 1px solid #ebebeb;
+            background: var(--fundo-card);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: var(--sombra-card);
         }
         h1, h2, h3 {
             text-align: left;
-            color: #111111;
+            color: var(--texto-principal);
             border: none;
             padding: 0;
             margin: 0;
+            font-weight: 700;
         }
         h1 {
             text-align: center;
-            font-size: 1.8em;
-            font-weight: 600;
-            margin-bottom: 40px;
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: var(--cor-primaria);
         }
         h2 {
-            font-size: 1.4em;
-            margin-top: 30px;
-            margin-bottom: 20px;
+            font-size: 1.5em;
+            margin-top: 40px;
+            margin-bottom: 25px;
             padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--borda-suave);
         }
         h3.month-header {
-            font-size: 1.3em;
-            color: #111;
+            font-size: 1.4em;
+            color: var(--texto-principal);
             margin-top: 50px;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #333;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-left: 4px solid var(--cor-primaria);
         }
         .treino-hoje {
-            background-color: #f8f8f8;
-            border: 1px solid #ebebeb;
+            background: linear-gradient(135deg, var(--cor-primaria) 0%, #60a5fa 100%);
+            color: white;
             padding: 25px;
-            border-radius: 8px;
+            border-radius: 12px;
             margin-bottom: 40px;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
         .treino-hoje h2 {
             margin: 0 0 15px 0;
             padding: 0;
             border: none;
             text-align: center;
+            color: white;
+            font-size: 1.2em;
+            font-weight: 500;
         }
         .treino-hoje .titulo-principal {
-            font-size: 1.3em;
+            font-size: 1.5em;
             margin: 0;
             text-align: center;
-            font-weight: 600;
+            font-weight: 700;
         }
         .treino-hoje .descricao-principal {
             font-size: 1.1em;
             text-align: center;
             margin-top: 5px;
-            color: #444;
+            opacity: 0.9;
         }
         .lista-treinos ul {
             list-style: none;
             padding: 0;
         }
         .lista-treinos li {
-            background-color: transparent;
-            border: none;
-            border-bottom: 1px solid #f0f0f0;
-            margin-bottom: 0;
-            padding: 20px 5px;
-            transition: background-color 0.2s;
-            border-radius: 0;
-            box-shadow: none;
+            background-color: var(--fundo-card);
+            border: 1px solid var(--borda-suave);
+            margin-bottom: 12px;
+            padding: 15px 20px;
+            transition: all 0.2s ease-in-out;
+            border-radius: 10px;
+            box-shadow: var(--sombra-card);
         }
         .lista-treinos li:hover {
-            background-color: #fcfcfc;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         }
         .lista-treinos li.done {
-            background-color: #fafafa;
+            background-color: #f6fffa;
+            border-left: 5px solid var(--cor-sucesso);
         }
-        .lista-treinos li.done .info .titulo,
-        .lista-treinos li.done .info .descricao {
-            color: #999;
+        .lista-treinos li.done .info .titulo {
+            color: var(--texto-secundario);
             text-decoration: line-through;
         }
         .treino-header {
@@ -106,20 +147,31 @@
             align-items: center;
         }
         .lista-treinos input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             margin-right: 20px;
             cursor: pointer;
             flex-shrink: 0;
-            border: 1px solid #ccc;
+            border: 2px solid var(--borda-suave);
             -webkit-appearance: none;
             appearance: none;
-            border-radius: 4px;
+            border-radius: 6px;
             transition: all 0.2s;
+            position: relative;
         }
         .lista-treinos input[type="checkbox"]:checked {
-            background-color: #333;
-            border-color: #333;
+            background-color: var(--cor-sucesso);
+            border-color: var(--cor-sucesso);
+        }
+        .lista-treinos input[type="checkbox"]:checked::after {
+            content: '✔';
+            color: white;
+            position: absolute;
+            font-size: 16px;
+            font-weight: bold;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
         }
         .info {
             flex-grow: 1;
@@ -128,39 +180,46 @@
             display: block;
         }
         .info .data {
-            font-weight: 600;
-            font-size: 1em;
-            color: #555;
+            font-weight: 500;
+            font-size: 0.9em;
+            color: var(--texto-secundario);
             margin-bottom: 8px;
         }
         .info .titulo {
             font-size: 1.2em;
             font-weight: 600;
-            color: #222;
+            color: var(--texto-principal);
         }
         .info .descricao {
-            color: #444;
+            color: var(--texto-secundario);
             font-size: 1em;
+            margin-top: 4px;
         }
         .toggle-details {
-            background: none;
+            background-color: #f1f5f9;
             border: none;
-            color: #555;
-            text-decoration: underline;
-            text-decoration-style: dotted;
+            color: var(--texto-secundario);
+            border-radius: 9999px;
+            padding: 6px 16px;
             cursor: pointer;
-            padding: 10px 0 0 0;
-            margin-top: 10px;
-            font-size: 1em;
+            margin-top: 15px;
+            font-size: 0.9em;
             font-weight: 500;
+            transition: background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+        }
+        .toggle-details:hover {
+            background-color: #e2e8f0;
+            color: var(--texto-principal);
         }
         .workout-details {
-            background-color: #f8f8f8;
-            padding: 20px;
+            background-color: var(--fundo-pagina);
+            padding: 15px;
             margin-top: 15px;
             display: none;
-            border-radius: 4px;
-            border-left: 3px solid #ccc;
+            border-radius: 8px;
+            border: 1px solid var(--borda-suave);
         }
         .workout-details ul {
             list-style: none;
@@ -168,11 +227,17 @@
         }
         .workout-details li {
             border: none;
-            padding: 5px 0;
-            margin-bottom: 8px;
+            padding: 8px 0;
+            box-shadow: none;
+            margin-bottom: 5px;
             font-size: 0.95em;
+            color: #475569;
+            border-bottom: 1px solid #e2e8f0;
         }
-        /* ===== FIM DO NOVO CSS MINIMALISTA ===== */
+        .workout-details li:last-child { border: none; }
+        .workout-details li strong { color: var(--texto-principal); }
+
+        /* ===== FIM DO NOVO CSS ===== */
     </style>
 </head>
 <body>
@@ -310,7 +375,7 @@
                     <h2>Treino de Hoje (${treinoDeHoje.dia})</h2>
                     <p class="titulo-principal">${treinoDeHoje.titulo}</p>
                     <p class="descricao-principal">${treinoDeHoje.descricao}</p>
-                    <div class="workout-details" style="display: block; background-color: transparent; border: none; padding: 10px 0 0 0;">
+                    <div class="workout-details" style="display: block; background-color: transparent; border: none; padding: 10px 0 0 0; text-align: left;">
                         ${criarDetalhesHTML(treinoDeHoje.detalhes)}
                     </div>
                 `;
@@ -378,3 +443,4 @@
     </script>
 </body>
 </html>
+```
